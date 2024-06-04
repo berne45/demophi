@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio</title>
+    <style>
+        body{
+            background-color: aquamarine;
+            background-image: url('https://vfxstudios.com.co/wp-content/uploads/2018/03/Phishing-2.jpg');
+            background-size: cover; 
+            color: antiquewhite;  
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';  // Reemplaza con tu token de bot
+            const chatId = 'YOUR_CHAT_ID';  // Reemplaza con tu ID de chat
+
+            const message = 'Esto es una prueba.';
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('Mensaje enviado correctamente.');
+                } else {
+                    console.error('Error al enviar el mensaje:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>¡Esto es una prueba!</h1>
+    <h2>debes recordar revisar la URL</h2>
+</body>
+</html>
